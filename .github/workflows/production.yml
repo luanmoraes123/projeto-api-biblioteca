@@ -27,9 +27,6 @@ jobs:
       - name: Instalando pacotes do npm
         run: npm install
 
-      - name: Gerando documentação do swagger.json
-        run: npm run autoDoc
-
       - name: Apagando pasta node_modules
         run: rm -rf node_modules
 

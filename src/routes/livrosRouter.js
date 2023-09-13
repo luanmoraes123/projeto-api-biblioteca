@@ -32,11 +32,13 @@ router.put('/:id', connectionBD, async function (req, res) {
   try {
     const idParam = req.params.id;
     let { id, titulo, paginas, isbn, editora } = req.body;
-    let respostaBD = await livrosSchema.findOneAndUpdate({ id: idParam }, { id, titulo, paginas, isbn, editora }, { new: true });
+    let respostaBD = await livrosSchema.findOneAndUpdate({ id: idParam }, { id: idParam, titulo, paginas, isbn, editora }, { new: true });
 
     res.status(200).json(respostaBD);
   } catch (error) {
-    console.log(error);
+    res.status(404).json({
+      mensagem: error
+    });
   }
 })
 
@@ -48,6 +50,19 @@ router.delete('/:id', connectionBD, async function (req, res) {
   } catch (error) {
     console.log(error);
     res.send(error);
+  }
+})
+
+router.get('/:id', connectionBD, async function (req, res) {
+  try {
+    const idParam = req.params.id;
+    let respostaBD = await livrosSchema.findOne({ id: idParam });
+
+    res.status(200).json(respostaBD);
+  } catch (error) {
+    res.status(404).json({
+      mensagem: error
+    });
   }
 })
 
